@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
-import Button from './Button';
-import Header from './Header';
+import Button from './common/Button';
+import Header from './common/Header';
 
 class PickLocation extends Component {
   render() {
-    console.log(this.props.locate);
     return (
         <View>
         <Header headerText={'Where can i take you today?'} />
