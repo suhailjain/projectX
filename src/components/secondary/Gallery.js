@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Header from '../common/Header';
 import Button from '../common/Button';
+import ImageList from './ImageList';
 
 class Gallery extends Component {
   render() {
@@ -16,18 +17,11 @@ class Gallery extends Component {
       <Button onPress={() => Actions.camera()} >
       click
       </Button>
+      <ImageList />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  }
-});
 
 const mapStateToProps = state => {
   return {

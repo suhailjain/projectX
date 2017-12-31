@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, PropTypes } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
 import Header from './common/Header';
-import Button from './common/Button';
 import DrawerMenu from './secondary/DrawerMenu';
 
 class Lobby extends Component {
