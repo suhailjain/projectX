@@ -9,11 +9,12 @@ const ConfirmUploadView = (props) => {
       <View>
       <Text>confirm</Text>
       <Image
-        style={{ flex: 1 }}
+        style={{ width: 100,
+        height: 100 }}
         source={{ uri: props.pic.node.image.uri }}
       />
       </View>
     );
 };
-
+//source={{ uri: props.pic.node.image.uri }}
 export default ConfirmUploadView;
