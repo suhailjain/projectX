@@ -4,6 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 
 class CameraComponent extends Component {
@@ -15,11 +16,13 @@ class CameraComponent extends Component {
   }
 
   takePicture() {
-    const options = {};
+    console.log('hi');
     //options.location = ...
-    this.camera.capture({ metadata: options })
+    this.camera.capture()
       .then((data) => console.log(data))
       .catch(err => console.error(err));
+
+    Actions.display();
   }
 
   render() {
@@ -31,6 +34,8 @@ class CameraComponent extends Component {
           }}
           onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
+          type={Camera.constants.Type.front
+          }
           aspect={Camera.constants.Aspect.fill}
         >
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>

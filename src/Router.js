@@ -9,6 +9,7 @@ import Survey from './components/secondary/Survey';
 import SocialConnect from './components/secondary/SocialConnect';
 import Movie from './components/secondary/Movie';
 import CameraComponent from './components/common/CameraComponent';
+import DisplayImage from './components/secondary/DisplayImage'; 
 
 class RouterComponent extends Component {
   render() {
@@ -23,6 +24,7 @@ class RouterComponent extends Component {
         <Scene key="movie" component={Movie} />
         <Scene key="connect" component={SocialConnect} />
         <Scene key="camera" component={CameraComponent} />
+        <Scene key="display" component={DisplayImage} />
       </Router>
           );
   }

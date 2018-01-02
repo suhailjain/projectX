@@ -6,10 +6,10 @@ const ImageItem = (props) => {
     return (
       <View>
       <View>
-        <Text>{props.pic.name}</Text>
+        <Text>{props.pic.title}</Text>
       </View>
       <View>
-        <Text>{props.pic.name}</Text>
+        <Text>{props.pic.id}</Text>
       </View>
       </View>
     );

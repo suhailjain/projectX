@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import { Text, ListView } from 'react-native';
+import { FlatList } from 'react-native';
+import axios from 'axios';
 import ImageItem from './ImageItem';
 
-const data = [{
-  name: 'waaah'
-}, {
-  name: 'waaah'
-}];
-
 export default class ImageList extends Component {
+  constructor() {
+    super();
+    this.state = { datalist: [] };
+  }
   componentWillMount() {
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows(data),
-    };
+    axios.get('https://unityone-65a80.firebaseio.com/posts.json').then(response => {
+      this.setState({
+        datalist: response.data
+      });
+    });
   }
   render() {
     return (
-      <ListView
-              dataSource={this.state.dataSource}
-              renderRow={(rowData) => <ImageItem pic={rowData} />}
+      <FlatList
+        data={this.state.datalist}
+        renderItem={({ item }) => <ImageItem pic={item} />}
+        extraData={this.state}
       />
     );
   }
