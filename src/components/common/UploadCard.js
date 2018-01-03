@@ -6,7 +6,7 @@ import Button from './Button';
 import fbAccess from '../FirebaseConfig';
 
 const storage = fbAccess.storage();
-
+const db = fbAccess.database();
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -20,6 +20,7 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
     let uploadBlob = null;
     const imageRef = storage.ref('images').child(`${sessionId}`);
     console.log('start');
+    const file = `${sessionId}`;
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
         return Blob.build(data, { type: `${mime};BASE64` });
@@ -35,7 +36,16 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
       })
       .then((url) => {
         resolve(url);
-      })
+        console.log(url);
+        const y = 'y';
+        const date = '03-03-03';
+        const key = 2;
+        const likes = 33;
+        const location = 'Janakpuri';
+        const title = 'title';
+
+        db.ref('/posts').push({ y, date, key, likes, location, title, url });
+        })
       .catch((error) => {
         reject(error);
     });
