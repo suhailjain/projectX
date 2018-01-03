@@ -42,8 +42,8 @@
 	<string/>
 	<key>NSCameraUsageDescription</key>
 	<string>Nice smile, there!</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>
     Your message to user when the photo library is accessed for the first time
   </string>
 	<key>NSAppTransportSecurity</key>

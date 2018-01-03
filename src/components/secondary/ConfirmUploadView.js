@@ -14,7 +14,7 @@ const ConfirmUploadView = (props) => {
         height: 300 }}
         source={{ uri: props.pic.node.image.uri }}
       />
-      <UploadCard />
+      <UploadCard uri={props.pic.node.image.uri} />
       </View>
     );
 };

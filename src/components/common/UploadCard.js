@@ -1,6 +1,46 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
 import Button from './Button';
+import fbAccess from '../FirebaseConfig';
+
+const storage = fbAccess.storage();
+
+const Blob = RNFetchBlob.polyfill.Blob;
+const fs = RNFetchBlob.fs;
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = Blob;
+
+const uploadImage = (uri, mime = 'application/octet-stream') => {
+  return new Promise((resolve, reject) => {
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    console.log(uri);
+    const sessionId = new Date().getTime();
+    let uploadBlob = null;
+    const imageRef = storage.ref('images').child(`${sessionId}`);
+    console.log('start');
+    fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` });
+      })
+      .then((blob) => {
+        uploadBlob = blob;
+        return imageRef.put(blob, { contentType: mime });
+      })
+      .then(() => {
+        uploadBlob.close();
+        console.log('end');
+        return imageRef.getDownloadURL();
+      })
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((error) => {
+        reject(error);
+    });
+  });
+};
 
 class UploadCard extends Component {
   render() {
@@ -8,12 +48,12 @@ class UploadCard extends Component {
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => console.log('upload')} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri)} style={upload} >
             upload
           </Button>
         </View>
         <View>
-          <Button onPress={() => console.log('upload')} style={retry} >
+          <Button onPress={() => Actions.camera()} style={retry} >
             Retry
           </Button>
         </View>
