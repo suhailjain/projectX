@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import UploadCard from '../common/UploadCard';
 
 const ConfirmUploadView = (props) => {
     //console.log(this.prop.pic);
@@ -9,10 +10,11 @@ const ConfirmUploadView = (props) => {
       <View>
       <Text>confirm</Text>
       <Image
-        style={{ width: 100,
-        height: 100 }}
+        style={{ width: 300,
+        height: 300 }}
         source={{ uri: props.pic.node.image.uri }}
       />
+      <UploadCard />
       </View>
     );
 };
