@@ -7,6 +7,7 @@ const likeHandle = () => {
 };
 
 const ImageItem = (props) => {
+  console.log(props.pic);
     return (
       <View>
       <Image
@@ -15,7 +16,7 @@ const ImageItem = (props) => {
         source={{ uri: props.pic.url }}
       />
       <Text>
-      {props.pic.title}
+      {props.pic.key}
       </Text>
       <Button onPress={() => likeHandle()} >
       like

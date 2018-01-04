@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
+import axios from 'axios';
 import Button from './Button';
 import fbAccess from '../FirebaseConfig';
 
@@ -12,7 +13,7 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-const uploadImage = (uri, mime = 'application/octet-stream') => {
+const uploadImage = (uri, key, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
     console.log(uri);
@@ -20,7 +21,6 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
     let uploadBlob = null;
     const imageRef = storage.ref('images').child(`${sessionId}`);
     console.log('start');
-    const file = `${sessionId}`;
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
         return Blob.build(data, { type: `${mime};BASE64` });
@@ -36,15 +36,9 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
       })
       .then((url) => {
         resolve(url);
-        console.log(url);
-        const y = 'y';
-        const date = '03-03-03';
-        const key = 2;
-        const likes = 33;
-        const location = 'Janakpuri';
-        const title = 'title';
-
-        db.ref('/posts').push({ y, date, key, likes, location, title, url });
+        db.ref('/posts').child(key).set({ url: url, likes: 0 });
+        db.ref('/IndexKeys').set({ posts: key + 1 });
+        //increment the key;
         })
       .catch((error) => {
         reject(error);
@@ -53,12 +47,24 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 };
 
 class UploadCard extends Component {
+  constructor() {
+    super();
+    this.state = { key: -1 };
+  }
+  componentWillMount() {
+    axios.get('https://unityone-65a80.firebaseio.com/IndexKeys.json').then(response => {
+      this.setState({
+        key: response.data.posts
+      });
+    //  console.log(response.data);
+    });
+  }
   render() {
     const { container, upload, retry } = styles;
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => uploadImage(this.props.uri)} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri, this.state.key)} style={upload} >
             upload
           </Button>
         </View>

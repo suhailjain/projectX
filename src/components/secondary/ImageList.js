@@ -13,14 +13,16 @@ export default class ImageList extends Component {
       this.setState({
         datalist: response.data
       });
+      console.log(response.data);
     });
   }
   render() {
+    console.log(this.state.datalist);
     return (
       <FlatList
         data={this.state.datalist}
         renderItem={({ item }) => <ImageItem pic={item} />}
-        extraData={this.state}
+        //extraData={this.state}
       />
     );
   }
