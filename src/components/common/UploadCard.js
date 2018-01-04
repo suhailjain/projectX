@@ -3,6 +3,7 @@ import { View, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Button from './Button';
 import fbAccess from '../FirebaseConfig';
 
@@ -60,6 +61,8 @@ class UploadCard extends Component {
     });
   }
   render() {
+    //location is working fine
+    console.log(this.props.locate);
     const { container, upload, retry } = styles;
     return (
       <View>
@@ -102,4 +105,10 @@ const styles = {
   }
 };
 
-export default UploadCard;
+const mapStateToProps = state => {
+  return {
+    locate: state.currentLocation
+  };
+};
+
+export default connect(mapStateToProps)(UploadCard);

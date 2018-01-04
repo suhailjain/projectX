@@ -5,6 +5,7 @@ import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
 import Header from './common/Header';
 import DrawerMenu from './secondary/DrawerMenu';
+import Menu from './primary/Menu';
 
 class Lobby extends Component {
   state={
@@ -45,7 +46,7 @@ class Lobby extends Component {
         >
         <View style={{ backgroundColor: 'blue', flex: 1 }}>
           <Header headerText={this.props.locate} />
-          <Text>congrats</Text>
+        <Menu />
         </View>
       </Drawer>
     );
