@@ -10,7 +10,7 @@ class Gallery extends Component {
   render() {
     return (
       <View>
-      <Header headerText={'photos${this.props.location}'} />
+      <Header headerText={'Selfie Point'} />
       <Text>
       Gallery
       </Text>

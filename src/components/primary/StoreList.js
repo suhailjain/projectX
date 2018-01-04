@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Store from './Store';
 
 class StoreList extends Component {
@@ -9,7 +10,13 @@ class StoreList extends Component {
     this.state = { storelist: [] };
   }
   componentWillMount() {
-    axios.get('https://unityone-65a80.firebaseio.com/stores.json').then(response => {
+    let url = 0;
+    if (this.props.purpose === 'shopping') {
+      url = this.props.storeurl;
+    } else {
+      url = this.props.foodurl;
+    }
+    axios.get(url).then(response => {
       this.setState({
         storelist: response.data
       });
@@ -26,4 +33,12 @@ class StoreList extends Component {
   }
 }
 
-export default StoreList;
+const mapStateToProps = state => {
+  return {
+    storeurl: state.storeDB,
+    purpose: state.purpose,
+    foodurl: state.foodDB
+  };
+};
+
+export default connect(mapStateToProps)(StoreList);

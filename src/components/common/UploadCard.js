@@ -14,13 +14,13 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-const uploadImage = (uri, key, mime = 'application/octet-stream') => {
+const uploadImage = (uri, key, location, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
     console.log(uri);
     const sessionId = new Date().getTime();
     let uploadBlob = null;
-    const imageRef = storage.ref('images').child(`${sessionId}`);
+    const imageRef = storage.ref(location).child(`${sessionId}`);
     console.log('start');
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
@@ -39,6 +39,7 @@ const uploadImage = (uri, key, mime = 'application/octet-stream') => {
         resolve(url);
         db.ref('/posts').child(key).set({ url: url, likes: 0 });
         db.ref('/IndexKeys').set({ posts: key + 1 });
+        Actions.gallery();
         //increment the key;
         })
       .catch((error) => {
@@ -62,12 +63,12 @@ class UploadCard extends Component {
   }
   render() {
     //location is working fine
-    console.log(this.props.locate);
+    console.log(this.props.dbref);
     const { container, upload, retry } = styles;
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => uploadImage(this.props.uri, this.state.key)} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate)} style={upload} >
             upload
           </Button>
         </View>
@@ -107,7 +108,8 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
-    locate: state.currentLocation
+    locate: state.currentLocation,
+    dbref: state.dbRef
   };
 };
 

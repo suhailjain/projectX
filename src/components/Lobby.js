@@ -5,7 +5,7 @@ import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
 import Header from './common/Header';
 import DrawerMenu from './secondary/DrawerMenu';
-import Menu from './primary/Menu';
+import Menu from './Menu';
 
 class Lobby extends Component {
   state={

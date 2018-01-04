@@ -7,7 +7,6 @@ const likeHandle = () => {
 };
 
 const ImageItem = (props) => {
-  console.log(props.pic);
     return (
       <View>
       <Image

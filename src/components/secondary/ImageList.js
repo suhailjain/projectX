@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import ImageItem from './ImageItem';
 
-export default class ImageList extends Component {
+class ImageList extends Component {
   constructor() {
     super();
     this.state = { datalist: [] };
   }
   componentWillMount() {
-    axios.get('https://unityone-65a80.firebaseio.com/posts.json').then(response => {
+    axios.get(this.props.url).then(response => {
       this.setState({
         datalist: response.data
       });
@@ -17,7 +18,7 @@ export default class ImageList extends Component {
     });
   }
   render() {
-    console.log(this.state.datalist);
+    console.log(this.props.url);
     return (
       <FlatList
         data={this.state.datalist}
@@ -27,3 +28,11 @@ export default class ImageList extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    url: state.postsDB
+  };
+};
+
+export default connect(mapStateToProps)(ImageList);

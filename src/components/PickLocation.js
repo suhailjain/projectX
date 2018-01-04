@@ -14,16 +14,28 @@ class PickLocation extends Component {
         <Header headerText={'Where can i take you today?'} />
         <Button onPress={() => {
           this.props.selectLocation('Rohini');
+          this.props.postUrl('https://unityone-65a80.firebaseio.com/posts.json');
+          this.props.storeUrl('https://unityone-65a80.firebaseio.com/rohiniShop.json');
+          this.props.foodUrl('https://unityone-65a80.firebaseio.com/rohiniFood.json');
+          this.props.dbRef('/posts');
           Actions.lobby();
         }}>Rohini
         </Button>
         <Button onPress={() => {
           this.props.selectLocation('Janakpuri');
+          this.props.postUrl('https://unityone-65a80.firebaseio.com/jPosts.json');
+          this.props.storeUrl('https://unityone-65a80.firebaseio.com/janakpuriShop.json');
+          this.props.foodUrl('https://unityone-65a80.firebaseio.com/janakpuriFood.json');
+          this.props.dbRef('/jPosts');
           Actions.lobby();
         }}>Janakpuri
         </Button>
         <Button onPress={() => {
           this.props.selectLocation('Shahadra');
+          this.props.postUrl('https://unityone-65a80.firebaseio.com/sPosts.json');
+          this.props.storeUrl('https://unityone-65a80.firebaseio.com/shahdraShop.json');
+          this.props.foodUrl('https://unityone-65a80.firebaseio.com/shahdraFood.json');
+          this.props.dbRef('/sPosts');
           Actions.lobby();
         }}>
           Shahadra
