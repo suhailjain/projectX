@@ -11,6 +11,7 @@ import Movie from './components/secondary/Movie';
 import CameraComponent from './components/common/CameraComponent';
 import DisplayImage from './components/secondary/DisplayImage';
 import StoreList from './components/primary/StoreList';
+import Cinepolis from './components/primary/Cinepolis';
 
 class RouterComponent extends Component {
   render() {
@@ -27,6 +28,7 @@ class RouterComponent extends Component {
         <Scene key="camera" component={CameraComponent} />
         <Scene key="display" component={DisplayImage} />
         <Scene key="storelist" component={StoreList} />
+        <Scene key="cinepolis" component={Cinepolis} />
       </Router>
           );
   }

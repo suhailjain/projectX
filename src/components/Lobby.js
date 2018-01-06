@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar} from 'react-native';
 import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
@@ -37,13 +37,14 @@ class Lobby extends Component {
           console.log('onclose')
           this.setState({ drawerOpen: false })
         }}
-        captureGestures={false}
+        captureGestures={true}
         tweenDuration={100}
         panThreshold={0.08}
         disabled={this.state.drawerDisabled}
         panOpenMask={0.3}
         negotiatePan
         >
+        <StatusBar barStyle = "dark-content" hidden = {false}/>
         <View style={{ flex: 1 }}>
           <Header headerText={this.props.locate} />
         <Menu />

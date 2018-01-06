@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Drawer from 'react-native-drawer'
@@ -11,6 +11,7 @@ class PickLocation extends Component {
   render() {
     return (
         <View>
+        <StatusBar barStyle = "dark-content" hidden = {true}/>
         <Header headerText={'Where can i take you today?'} />
         <Button onPress={() => {
           this.props.selectLocation('Rohini');

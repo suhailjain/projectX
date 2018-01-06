@@ -9,6 +9,7 @@ class Menu extends Component {
   render() {
   return (
     <View>
+
     <Button onPress={() => {
     this.props.purpose('shopping');
       Actions.storelist();
@@ -21,6 +22,12 @@ class Menu extends Component {
       Actions.storelist();
     }}>
     Food
+    </Button>
+
+    <Button onPress={() => {
+      Actions.cinepolis();
+    }}>
+    Cinepolis
     </Button>
     </View>
   );
