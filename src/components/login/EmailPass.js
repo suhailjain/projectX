@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import Button from '../common/Button';
 import * as actions from '../../actions';
-import fbAccess from '../FirebaseConfig';
 
 class EmailPass extends Component {
   constructor() {
@@ -45,7 +44,7 @@ class EmailPass extends Component {
              placeholder="Email"
              placeholderTextColor="#9a73ef"
              autoCapitalize="none"
-             onChangeText = {this.handleEmail} />
+             onChangeText={this.handleEmail} />
         </View>
         <View>
         <TextInput

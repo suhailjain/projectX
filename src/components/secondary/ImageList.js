@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ImageItem from './ImageItem';
@@ -14,17 +14,17 @@ class ImageList extends Component {
       this.setState({
         datalist: response.data
       });
-      console.log(response.data);
     });
   }
   render() {
-    console.log(this.props.url);
     return (
+      <ScrollView>
       <FlatList
         data={this.state.datalist}
         renderItem={({ item }) => <ImageItem pic={item} />}
         //extraData={this.state}
       />
+      </ScrollView>
     );
   }
 }

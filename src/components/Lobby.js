@@ -44,7 +44,7 @@ class Lobby extends Component {
         panOpenMask={0.3}
         negotiatePan
         >
-        <View style={{ backgroundColor: 'blue', flex: 1 }}>
+        <View style={{ flex: 1 }}>
           <Header headerText={this.props.locate} />
         <Menu />
         </View>

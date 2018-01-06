@@ -33,9 +33,16 @@ export const dbRef = (ref) => {
   };
 };
 
-export const purpose = (purpose) => {
+export const purpose = (purposed) => {
   return {
     type: 'purpose',
-    payload: purpose
+    payload: purposed
+  };
+};
+
+export const likeUrl = (url) => {
+  return {
+    type: 'like_url',
+    payload: url
   };
 };

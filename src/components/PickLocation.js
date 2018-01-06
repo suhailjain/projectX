@@ -15,6 +15,7 @@ class PickLocation extends Component {
         <Button onPress={() => {
           this.props.selectLocation('Rohini');
           this.props.postUrl('https://unityone-65a80.firebaseio.com/posts.json');
+          this.props.likeUrl('https://unityone-65a80.firebaseio.com/posts');
           this.props.storeUrl('https://unityone-65a80.firebaseio.com/rohiniShop.json');
           this.props.foodUrl('https://unityone-65a80.firebaseio.com/rohiniFood.json');
           this.props.dbRef('/posts');
@@ -24,6 +25,7 @@ class PickLocation extends Component {
         <Button onPress={() => {
           this.props.selectLocation('Janakpuri');
           this.props.postUrl('https://unityone-65a80.firebaseio.com/jPosts.json');
+          this.props.likeUrl('https://unityone-65a80.firebaseio.com/jPosts');
           this.props.storeUrl('https://unityone-65a80.firebaseio.com/janakpuriShop.json');
           this.props.foodUrl('https://unityone-65a80.firebaseio.com/janakpuriFood.json');
           this.props.dbRef('/jPosts');
@@ -33,6 +35,7 @@ class PickLocation extends Component {
         <Button onPress={() => {
           this.props.selectLocation('Shahadra');
           this.props.postUrl('https://unityone-65a80.firebaseio.com/sPosts.json');
+          this.props.likeUrl('https://unityone-65a80.firebaseio.com/sPosts');
           this.props.storeUrl('https://unityone-65a80.firebaseio.com/shahdraShop.json');
           this.props.foodUrl('https://unityone-65a80.firebaseio.com/shahdraFood.json');
           this.props.dbRef('/sPosts');

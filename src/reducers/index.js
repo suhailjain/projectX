@@ -5,6 +5,7 @@ import FoodReducer from './FoodReducer';
 import PostsReducer from './PostsReducer';
 import DbRefReducer from './DbRefReducer';
 import PurposeReducer from './PurposeReducer';
+import LikeUrlReducer from './LikeUrlReducer';
 
 export default combineReducers({
 //store.getState()  returns {currentLocation:[]}
@@ -13,5 +14,6 @@ export default combineReducers({
   storeDB: StoreReducer,
   foodDB: FoodReducer,
   dbRef: DbRefReducer,
-  purpose: PurposeReducer
+  purpose: PurposeReducer,
+  likeUrl: LikeUrlReducer
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import axios from 'axios';
@@ -14,14 +14,12 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-const uploadImage = (uri, key, location, mime = 'application/octet-stream') => {
+const uploadImage = (uri, key, location, dbref, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-    console.log(uri);
     const sessionId = new Date().getTime();
     let uploadBlob = null;
     const imageRef = storage.ref(location).child(`${sessionId}`);
-    console.log('start');
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
         return Blob.build(data, { type: `${mime};BASE64` });
@@ -32,17 +30,41 @@ const uploadImage = (uri, key, location, mime = 'application/octet-stream') => {
       })
       .then(() => {
         uploadBlob.close();
-        console.log('end');
         return imageRef.getDownloadURL();
       })
       .then((url) => {
         resolve(url);
-        db.ref('/posts').child(key).set({ url: url, likes: 0 });
-        db.ref('/IndexKeys').set({ posts: key + 1 });
-        Actions.gallery();
-        //increment the key;
+        let key = 0;
+        let dbhouse = '';
+        axios.get('https://unityone-65a80.firebaseio.com/IndexKeys.json')
+        .then(response => { /* get the index*/
+          switch (location) {
+            case 'Rohini': {
+              dbhouse = 'posts';
+              console.log(response.data.posts.index);
+              key = response.data.posts.index;
+              break;
+            }
+            case 'Janakpuri': {
+              dbhouse = 'jposts';
+              key = response.data.jposts.index;
+              break;
+            }
+            case 'Shahadra': {
+              dbhouse = 'sposts';
+              key = response.data.sposts.index;
+              break;
+            }
+            default:
+              key = 0;
+          }
         })
-      .catch((error) => {
+        .then(() => db.ref(dbref).child(key).set({ url: url, likes: 0, id: key, approved: 'N' })) /* push new record */
+        .then(() => db.ref(`/IndexKeys/${dbhouse}`).update({ index: key + 1 })) /* increment the index */
+        .then(() => Actions.gallery())
+        .then(() => Alert.alert('your selfie is uploaded and is awaiting authority approval.'));
+        })
+        .catch((error) => {
         reject(error);
     });
   });
@@ -51,7 +73,7 @@ const uploadImage = (uri, key, location, mime = 'application/octet-stream') => {
 class UploadCard extends Component {
   constructor() {
     super();
-    this.state = { key: -1 };
+    this.state = { key: 0 };
   }
   componentWillMount() {
     axios.get('https://unityone-65a80.firebaseio.com/IndexKeys.json').then(response => {
@@ -63,12 +85,13 @@ class UploadCard extends Component {
   }
   render() {
     //location is working fine
-    console.log(this.props.dbref);
+    //console.log('dbref value is below');
+    //console.log(this.props.dbref);
     const { container, upload, retry } = styles;
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate)} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate, this.props.dbref)} style={upload} >
             upload
           </Button>
         </View>
