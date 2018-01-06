@@ -19,10 +19,8 @@ class CameraComponent extends Component {
     console.log('hi');
     //options.location = ...
     this.camera.capture()
-      .then((data) => console.log(data))
+      .then(() => Actions.display())
       .catch(err => console.error(err));
-
-    Actions.display();
   }
 
   render() {
