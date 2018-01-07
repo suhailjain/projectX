@@ -37,7 +37,7 @@ class EmailPass extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{ paddingTop: 50 }}> 
         <View>
         <TextInput
              underlineColorAndroid="transparent"

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Platform, Alert } from 'react-native';
+import { View, Platform, Alert, ActivityIndicator } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import axios from 'axios';
@@ -14,12 +14,13 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-const uploadImage = (uri, key, location, dbref, title, mime = 'application/octet-stream') => {
+const uploadImage = (uri, location, dbref, title, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
     const sessionId = new Date().getTime();
     let uploadBlob = null;
     const imageRef = storage.ref(location).child(`${sessionId}`);
+    console.log('start of upload');
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
         return Blob.build(data, { type: `${mime};BASE64` });
@@ -41,7 +42,6 @@ const uploadImage = (uri, key, location, dbref, title, mime = 'application/octet
           switch (location) {
             case 'Rohini': {
               dbhouse = 'posts';
-              console.log(response.data.posts.index);
               key = response.data.posts.index;
               break;
             }
@@ -60,40 +60,26 @@ const uploadImage = (uri, key, location, dbref, title, mime = 'application/octet
           }
         })
         .then(() => db.ref(dbref).child(key).set({ url: url, likes: 0, id: key, approved: 'N', title: title })) /* push new record */
-        .then(() => db.ref(`/IndexKeys/${dbhouse}`).update({ index: key + 1 })) /* increment the index */
+        .then(() => {
+          db.ref(`/IndexKeys/${dbhouse}`).update({ index: key + 1 });
+        }) /* increment the index */
         .then(() => Actions.gallery())
         .then(() => Alert.alert('your selfie is uploaded and is awaiting authority approval.'));
         })
         .catch((error) => {
         reject(error);
     });
+    console.log('end of upload');
   });
 };
 
 class UploadCard extends Component {
-  constructor() {
-    super();
-    this.state = { key: 0 };
-
-  }
-  componentWillMount() {
-    axios.get('https://unityone-65a80.firebaseio.com/IndexKeys.json').then(response => {
-      this.setState({
-        key: response.data.posts
-      });
-    //  console.log(response.data);
-    this.props.title;
-    });
-  }
   render() {
-    //location is working fine
-    //console.log('dbref value is below');
-    //console.log(this.props.dbref);
     const { container, upload, retry } = styles;
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate, this.props.dbref, this.props.title)} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri, this.props.locate, this.props.dbref, this.props.title)} style={upload} >
             upload
           </Button>
         </View>
@@ -128,13 +114,19 @@ const styles = {
   },
   retry: {
     flexDirection: 'row'
-  }
+  },
+  activityIndicator: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 80
+   }
 };
 
 const mapStateToProps = state => {
   return {
     locate: state.currentLocation,
-    dbref: state.dbRef
+    dbref: state.dbRef,
   };
 };
 

@@ -5,15 +5,16 @@ import Button from '../common/Button';
 import fbAccess from '../FirebaseConfig';
 
 const likeHandle = (url, id, likes) => {
-  console.log(url);
-  console.log(likes);
-  console.log(id);
+    if (!fbAccess.auth().currentUser) {
+      Alert.alert('you must log in to like');
+    } else {
     const db = fbAccess.database();
     db.ref(`${url}`).child(id).update({ likes: likes + 1 })
     .then(() => {
       Alert.alert('your like was counted');
     })
     .catch(() => Alert.alert('fishh!, please try again.'));
+  }
 };
 
 class ImageItem extends Component {
