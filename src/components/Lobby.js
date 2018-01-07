@@ -47,7 +47,7 @@ class Lobby extends Component {
         <StatusBar barStyle = "dark-content" hidden = {false}/>
         <View style={{ flex: 1 }}>
           <Header headerText={this.props.locate} />
-        <Menu />
+        <Menu location={this.props.locate} />
         </View>
       </Drawer>
     );

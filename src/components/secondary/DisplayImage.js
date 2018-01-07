@@ -19,7 +19,7 @@ class DisplayImage extends Component {
       });
   }
   render() {
-    //console.log(this.state.photo.image.uri);
+    console.log(this.state.photo);
     return (
       <FlatList
         data={this.state.photo}

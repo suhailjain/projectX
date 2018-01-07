@@ -32,8 +32,8 @@ class CameraComponent extends Component {
           }}
           onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
-          type={Camera.constants.Type.front
-          }
+          captureQuality={Camera.constants.CaptureQuality["480p"]}
+          type={Camera.constants.Type.front}
           aspect={Camera.constants.Aspect.fill}
         >
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>

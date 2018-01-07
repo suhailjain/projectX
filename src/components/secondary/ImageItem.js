@@ -18,6 +18,7 @@ const likeHandle = (url, id, likes) => {
 
 class ImageItem extends Component {
   render() {
+    console.log(this.props.pic);
     return (
       <View>
       <Image

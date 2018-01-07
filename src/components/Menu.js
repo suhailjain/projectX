@@ -6,6 +6,17 @@ import * as actions from '../actions';
 import Button from './common/Button';
 
 class Menu extends Component {
+  renderCinepolis() {
+    if(this.props.location === 'Rohini') {
+      return (
+        <Button onPress={() => {
+          Actions.cinepolis();
+        }}>
+        Cinepolis
+        </Button>
+      );
+    }
+  }
   render() {
   return (
     <View>
@@ -23,12 +34,8 @@ class Menu extends Component {
     }}>
     Food
     </Button>
+    {this.renderCinepolis()}
 
-    <Button onPress={() => {
-      Actions.cinepolis();
-    }}>
-    Cinepolis
-    </Button>
     </View>
   );
 }
