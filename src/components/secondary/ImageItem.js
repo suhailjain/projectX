@@ -27,7 +27,7 @@ class ImageItem extends Component {
         source={{ uri: this.props.pic.url }}
       />
       <Text>
-      test
+      {this.props.pic.title}
       </Text>
       <Button onPress={() => likeHandle(this.props.dbref, this.props.pic.id, this.props.pic.likes)} >
       like {this.props.pic.likes}

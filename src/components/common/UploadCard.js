@@ -14,7 +14,7 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-const uploadImage = (uri, key, location, dbref, mime = 'application/octet-stream') => {
+const uploadImage = (uri, key, location, dbref, title, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
     const sessionId = new Date().getTime();
@@ -59,7 +59,7 @@ const uploadImage = (uri, key, location, dbref, mime = 'application/octet-stream
               key = 0;
           }
         })
-        .then(() => db.ref(dbref).child(key).set({ url: url, likes: 0, id: key, approved: 'N' })) /* push new record */
+        .then(() => db.ref(dbref).child(key).set({ url: url, likes: 0, id: key, approved: 'N', title: title })) /* push new record */
         .then(() => db.ref(`/IndexKeys/${dbhouse}`).update({ index: key + 1 })) /* increment the index */
         .then(() => Actions.gallery())
         .then(() => Alert.alert('your selfie is uploaded and is awaiting authority approval.'));
@@ -74,6 +74,7 @@ class UploadCard extends Component {
   constructor() {
     super();
     this.state = { key: 0 };
+
   }
   componentWillMount() {
     axios.get('https://unityone-65a80.firebaseio.com/IndexKeys.json').then(response => {
@@ -81,6 +82,7 @@ class UploadCard extends Component {
         key: response.data.posts
       });
     //  console.log(response.data);
+    this.props.title;
     });
   }
   render() {
@@ -91,7 +93,7 @@ class UploadCard extends Component {
     return (
       <View>
         <View style={container}>
-          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate, this.props.dbref)} style={upload} >
+          <Button onPress={() => uploadImage(this.props.uri, this.state.key, this.props.locate, this.props.dbref, this.props.title)} style={upload} >
             upload
           </Button>
         </View>
