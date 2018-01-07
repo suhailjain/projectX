@@ -15,18 +15,16 @@ class ImageList extends Component {
     const fbdb = fbAccess.database();
     console.log(this.props.dbref);
     let pics = [];
-    let i = 0;
     fbdb.ref(this.props.dbref).orderByChild('likes')
     .on("child_added", (snapshot) => {
-      //reversing the like order
+      //reversing the like order and check for approved
+      if (snapshot.val().approved === 'Y') {
       pics.unshift(snapshot.val());
       this.setState({
         datalist: pics
       });
+    }
     });
-
-    //temp = fbdb.ref(this.props.dbref).orderByChild('likes');
-    //console.log(temp);
   }
   render() {
     return (
