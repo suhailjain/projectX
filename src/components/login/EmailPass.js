@@ -5,41 +5,18 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import Button from '../common/Button';
 import * as actions from '../../actions';
+import fbAccess from '../FirebaseConfig';
 
 class EmailPass extends Component {
   constructor() {
     super();
-    this.state = { email: '', password: '', error: '' };
+    this.state = { email: '', password: '', error: '', loggedIn: '' };
   }
-  handleEmail = (text) => {
-    this.setState({ email: text });
-  }
-  handlePassword = (text) => {
-    this.setState({ password: text });
-    console.log(text);
-  }
-  login = (email, pass) => {
-    firebase.auth().signInWithEmailAndPassword(email, pass)
-    .then(() => Alert.alert('you have loggedin successfuly'))
-    .then(() => {
-      //after sign in
-      Actions.lobby();
-    })
-    .catch(() => {
-      firebase.auth().createUserWithEmailAndPassword(email, pass)
-      .then(() => Alert.alert('you have signedup successfuly!'))
-      .then(() => {
-        // message of signing up
-        Actions.lobby();
-      })
-      .catch(() => {
-        Alert.alert('something went wrong');
-      });
-    });
-  }
-  render() {
-    return (
-      <View style={{ paddingTop: 50 }}>
+  isUserSignedIn = () => {
+    const user = fbAccess.auth().currentUser;
+    if (user === null) {
+      return (
+        <View>
         <View>
         <TextInput
              underlineColorAndroid="transparent"
@@ -58,10 +35,53 @@ class EmailPass extends Component {
         <Button onPress={() => this.login(this.state.email, this.state.password)} >
         Submit
         </Button>
-        <Text>
-        {this.state.error};
-        </Text>
         </View>
+        </View>
+      );
+    } else {
+        return (
+          <Button onPress={() => this.logout()} >
+          signout
+          </Button>
+        );
+    }
+  }
+  logout = () => {
+    fbAccess.auth().signOut();
+    Actions.lobby();
+  }
+  handleEmail = (text) => {
+    this.setState({ email: text });
+  }
+  handlePassword = (text) => {
+    this.setState({ password: text });
+  }
+  login = (email, pass) => {
+    firebase.auth().signInWithEmailAndPassword(email, pass)
+    .then(() => Alert.alert('you have loggedin successfuly'))
+    .then(() => {
+      //after sign in
+      this.setState({ loggedIn: 'loggedIn' });
+      console.log('login');
+      console.log(this.state);
+      Actions.lobby();
+    })
+    .catch(() => {
+      firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .then(() => Alert.alert('you have signedup successfuly!'))
+      .then(() => {
+        // message of signing up
+        Actions.lobby();
+      })
+      .catch(() => {
+        Alert.alert('something went wrong');
+      });
+    });
+  }
+  render() {
+    return (
+      <View style={{ paddingTop: 50 }}>
+      {this.isUserSignedIn()}
       </View>
     );
   }

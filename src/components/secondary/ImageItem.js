@@ -5,18 +5,15 @@ import firebase from 'firebase';
 import Button from '../common/Button';
 import fbAccess from '../FirebaseConfig';
 
-const likeHandle = (url, id, likes, picUrl) => {
+const likeHandle = (url, id, likes) => {
     const user = fbAccess.auth().currentUser;
-    const uid = user.uid;
-    const uniqueKey = url + id;
-    console.log(user);
-    if (!firebase.auth().currentUser) {
+    if (user === null) {
       Alert.alert('you must log in to like');
     } else {
     const db = fbAccess.database();
-
+    const uid = user.uid;
+    const uniqueKey = url + id;
     db.ref(`/hypeUsers/users/${uid}/${uniqueKey}`).once('value').then((snapshot) => {
-
       if (snapshot.val()) {
           Alert.alert('you have liked this before, thanks!');
       } else {
@@ -48,7 +45,7 @@ class ImageItem extends Component {
       <Text>
       {this.props.pic.title}
       </Text>
-      <Button onPress={() => likeHandle(this.props.dbref, this.props.pic.id, this.props.pic.likes, this.props.pic.url)} >
+      <Button onPress={() => likeHandle(this.props.dbref, this.props.pic.id, this.props.pic.likes)} >
       like {this.props.pic.likes}
       </Button>
       </View>
