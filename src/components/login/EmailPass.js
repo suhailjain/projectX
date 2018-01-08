@@ -20,12 +20,14 @@ class EmailPass extends Component {
   }
   login = (email, pass) => {
     firebase.auth().signInWithEmailAndPassword(email, pass)
+    .then(() => Alert.alert('you have loggedin successfuly'))
     .then(() => {
       //after sign in
       Actions.lobby();
     })
     .catch(() => {
       firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .then(() => Alert.alert('you have signedup successfuly!'))
       .then(() => {
         // message of signing up
         Actions.lobby();
@@ -37,7 +39,7 @@ class EmailPass extends Component {
   }
   render() {
     return (
-      <View style={{ paddingTop: 50 }}> 
+      <View style={{ paddingTop: 50 }}>
         <View>
         <TextInput
              underlineColorAndroid="transparent"
