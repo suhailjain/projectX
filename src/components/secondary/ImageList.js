@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { query } from 'firebase';
 import ImageItem from './ImageItem';
 import fbAccess from '../FirebaseConfig';
-
+//there is no data writing back to firebase here
 class ImageList extends Component {
   constructor() {
     super();
