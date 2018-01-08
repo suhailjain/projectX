@@ -15,6 +15,7 @@ class ImageList extends Component {
     const fbdb = fbAccess.database();
     console.log(this.props.dbref);
     let pics = [];
+    // dbref = '/posts' || '/jPosts' || 'sPosts'
     fbdb.ref(this.props.dbref).orderByChild('likes')
     .on("child_added", (snapshot) => {
       //reversing the like order and check for approved
