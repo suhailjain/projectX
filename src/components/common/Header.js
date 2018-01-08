@@ -1,11 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import Button from './Button';
 
 const Header = (props) => {
   const { textStyle, viewStyle } = styles;
 
   return (
     <View style={viewStyle}>
+      <Button onPress={props.onPress}>
+      menu
+      </Button>
       <Text style={textStyle}>{props.headerText}</Text>
     </View>
   );
@@ -16,7 +20,8 @@ const styles = {
     backgroundColor: '#F8F8F8',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 100,
+    flexDirection: 'row',
     paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

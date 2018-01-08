@@ -46,3 +46,10 @@ export const likeUrl = (url) => {
     payload: url
   };
 };
+
+export const drawerState = (toggle) => {
+  return {
+    type: 'drawer_state',
+    payload: toggle
+  };
+};

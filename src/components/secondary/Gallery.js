@@ -8,7 +8,6 @@ import ImageList from './ImageList';
 import fbAccess from '../FirebaseConfig';
 
 const clickMe = () => {
-  console.log('order camera');
   const user = fbAccess.auth().currentUser;
   if (user === null) {
     Alert.alert('you must log in to upload yours');
@@ -30,6 +29,7 @@ class Gallery extends Component {
       click
       </Button>
       <ImageList />
+      <View style={{ height: 50, paddingBottom: 50, backgroundColor: 'blue' }} />
       </View>
     );
   }

@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { View, FlatList, ScrollView, List } from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { query } from 'firebase';
 import ImageItem from './ImageItem';
 import fbAccess from '../FirebaseConfig';
 //there is no data writing back to firebase here
+const renderSeparator = () => {
+return (
+  <View
+    style={{
+      height: 1,
+      width: "86%",
+      backgroundColor: "#CED0CE",
+      marginLeft: "14%"
+    }}
+  />
+);
+};
 class ImageList extends Component {
   constructor() {
     super();
@@ -33,7 +45,7 @@ class ImageList extends Component {
       <FlatList
         data={this.state.datalist}
         renderItem={({ item }) => <ImageItem pic={item} />}
-        //extraData={this.state}
+        keyExtractor={item => item.id}
       />
       </ScrollView>
     );

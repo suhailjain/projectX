@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import Button from '../common/Button';
 import * as actions from '../../actions';
 import fbAccess from '../FirebaseConfig';
+import Header from '../common/Header';
 
 class EmailPass extends Component {
   constructor() {
@@ -17,13 +18,15 @@ class EmailPass extends Component {
     if (user === null) {
       return (
         <View>
+        <Header headerText={'Register'} onPress={() => console.log('menu')} />
         <View>
         <TextInput
              underlineColorAndroid="transparent"
              placeholder="Email"
              placeholderTextColor="#9a73ef"
              autoCapitalize="none"
-             onChangeText={this.handleEmail} />
+             onChangeText={this.handleEmail}
+        />
         </View>
         <View>
         <TextInput
@@ -48,7 +51,8 @@ class EmailPass extends Component {
   }
   logout = () => {
     fbAccess.auth().signOut();
-    Actions.lobby();
+    Actions.refresh();
+  //  Actions.pop();
   }
   handleEmail = (text) => {
     this.setState({ email: text });
@@ -60,11 +64,8 @@ class EmailPass extends Component {
     firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(() => Alert.alert('you have loggedin successfuly'))
     .then(() => {
-      //after sign in
-      this.setState({ loggedIn: 'loggedIn' });
-      console.log('login');
-      console.log(this.state);
-      Actions.lobby();
+      Actions.refresh();
+    //  Actions.pop();
     })
     .catch(() => {
       firebase.auth().createUserWithEmailAndPassword(email, pass)
@@ -80,7 +81,7 @@ class EmailPass extends Component {
   }
   render() {
     return (
-      <View style={{ paddingTop: 50 }}>
+      <View>
       {this.isUserSignedIn()}
       </View>
     );

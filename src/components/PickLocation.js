@@ -6,6 +6,7 @@ import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
 import Button from './common/Button';
 import Header from './common/Header';
+import DrawerModal from './common/DrawerModal';
 
 class PickLocation extends Component {
   render() {

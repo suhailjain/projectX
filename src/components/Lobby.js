@@ -1,62 +1,27 @@
 import React, { Component } from 'react';
-import { Text, View, StatusBar} from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import Drawer from 'react-native-drawer'
 import * as actions from '../actions';
 import Header from './common/Header';
-import DrawerMenu from './secondary/DrawerMenu';
 import Menu from './Menu';
+import DrawerModal from './common/DrawerModal';
 
 class Lobby extends Component {
-  state={
-    drawerOpen: false,
-    drawerDisabled: false,
-  };
-  closeControlPanel = () => {
-   this._drawer.close()
- };
- openControlPanel = () => {
-   this._drawer.open()
- };
   render() {
-    //add a fancy drawer pull/push button
     return (
-      <Drawer
-        ref={(ref) => this._drawer = ref}
-        type="overlay"
-        content={
-          <DrawerMenu closeDrawer={this.closeControlPanel} />
-        }
-        acceptDoubleTap
-        styles={{ main: { shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15 } }}
-        onOpen={() => {
-          console.log('onopen')
-          this.setState({ drawerOpen: true })
-        }}
-        onClose={() => {
-          console.log('onclose')
-          this.setState({ drawerOpen: false })
-        }}
-        captureGestures={true}
-        tweenDuration={100}
-        panThreshold={0.08}
-        disabled={this.state.drawerDisabled}
-        panOpenMask={0.3}
-        negotiatePan
-        >
-        <StatusBar barStyle = "dark-content" hidden = {false}/>
-        <View style={{ flex: 1 }}>
-          <Header headerText={this.props.locate} />
+        <View>
+          <Header headerText={this.props.locate} onPress={() => this.props.drawerState(false)} />
         <Menu location={this.props.locate} />
+        <DrawerModal visible={this.props.toggle} />
         </View>
-      </Drawer>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    locate: state.currentLocation
+    locate: state.currentLocation,
+    toggle: state.drawerState
   };
 };
 

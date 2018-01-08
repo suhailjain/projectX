@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../common/Button';
-import About from '../secondary/Aboutus';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DrawerMenu = () => {
+const DrawerMenu = (props) => {
   return (
     <View style={styles.container}>
       <Button onPress={() => Actions.lobby()} >
@@ -46,6 +45,9 @@ const DrawerMenu = () => {
       </Button>
       <Button onPress={() => Actions.about()} >
         About Us
+      </Button>
+      <Button onPress={props.onPress} >
+      closeDrawer
       </Button>
     </View>
   );
