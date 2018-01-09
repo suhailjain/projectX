@@ -37,10 +37,11 @@ const likeHandle = (url, id, likes) => {
 class ImageItem extends Component {
   render() {
     console.log('success');
-    console.log(this.props.currentImage);
+    console.log(this.props.highlight);
     return (
       <View>
       <TouchableOpacity onPress={() => {
+        console.log(this.props.pic.url);
         this.props.currentImage(this.props.pic.url);
         this.props.currentImageVisible(true);
        }}>
@@ -62,7 +63,7 @@ class ImageItem extends Component {
       <Image
         style={{ width: 300,
         height: 300 }}
-        source={{ uri: this.props.pic.url }}
+        source={{ uri: this.props.highlight }}
       />
       <Text>confirm</Text>
       </Modal>
@@ -74,7 +75,7 @@ class ImageItem extends Component {
 const mapStateToProps = state => {
   return {
     dbref: state.dbRef,
-    currentImage: state.currentImage,
+    highlight: state.currentImage,
     visible: state.visible
   };
 };

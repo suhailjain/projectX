@@ -55,6 +55,7 @@ export const drawerState = (toggle) => {
 };
 
 export const currentImage = (url) => {
+  console.log(url);
   return {
     type: 'current_image',
     payload: url

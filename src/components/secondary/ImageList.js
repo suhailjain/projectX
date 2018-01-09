@@ -16,7 +16,6 @@ class ImageList extends Component {
     fbdb.ref(this.props.dbref).orderByChild('likes')
     .on('child_added', (snapshot) => {
       //reversing the like order and check for approved
-      console.log(snapshot.val());
       if (snapshot.val().approved === 'Y') {
       pics.unshift(snapshot.val());
       this.setState({
