@@ -3,11 +3,11 @@ import { Text, View } from 'react-native';
 import Button from './Button';
 
 const Header = (props) => {
-  const { textStyle, viewStyle } = styles;
+  const { textStyle, viewStyle, menu } = styles;
 
   return (
     <View style={viewStyle}>
-      <Button onPress={props.onPress}>
+      <Button onPress={props.onPress} styles={menu} visible={props.isVisible}>
       menu
       </Button>
       <Text style={textStyle}>{props.headerText}</Text>
@@ -20,9 +20,9 @@ const styles = {
     backgroundColor: '#F8F8F8',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 100,
+    height: '25%',
     flexDirection: 'row',
-    paddingTop: 15,
+    marginTop: '2%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -31,6 +31,9 @@ const styles = {
   },
   textStyle: {
     fontSize: 20
+  },
+  menu :{
+
   }
 };
 

@@ -29,7 +29,6 @@ class Gallery extends Component {
       click
       </Button>
       <ImageList />
-      <View style={{ height: 50, paddingBottom: 50, backgroundColor: 'blue' }} />
       </View>
     );
   }

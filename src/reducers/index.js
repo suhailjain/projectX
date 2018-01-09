@@ -7,6 +7,8 @@ import DbRefReducer from './DbRefReducer';
 import PurposeReducer from './PurposeReducer';
 import LikeUrlReducer from './LikeUrlReducer';
 import DrawerStateReducer from './DrawerStateReducer';
+import CurrentImageReducer from './CurrentImageReducer';
+import CurrentImageVisible from './CurrentImageVisibleReducer';
 
 export default combineReducers({
 //store.getState()  returns {currentLocation:[]}
@@ -17,5 +19,7 @@ export default combineReducers({
   dbRef: DbRefReducer,
   purpose: PurposeReducer,
   likeUrl: LikeUrlReducer,
-  drawerState: DrawerStateReducer
+  drawerState: DrawerStateReducer,
+  currentImage: CurrentImageReducer,
+  visible: CurrentImageVisible
 });

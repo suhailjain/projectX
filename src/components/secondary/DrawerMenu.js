@@ -4,13 +4,14 @@ import {
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from '../common/Button';
+import * as actions from '../../actions';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginRight: 100,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -25,25 +26,46 @@ const styles = StyleSheet.create({
 const DrawerMenu = (props) => {
   return (
     <View style={styles.container}>
-      <Button onPress={() => Actions.lobby()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.lobby();
+      }}>
         Home
       </Button>
-      <Button onPress={() => Actions.movie()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.movie();
+      }}>
         Unity Clip
       </Button>
-      <Button onPress={() => Actions.feedback()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.feedback();
+      }}>
         Feedbacks
       </Button>
-      <Button onPress={() => Actions.survey()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.survey();
+      }}>
         Surveys
       </Button>
-      <Button onPress={() => Actions.gallery()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.gallery();
+      }}>
         Gallery
       </Button>
-      <Button onPress={() => Actions.connect()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.connect();
+      }}>
         Connect
       </Button>
-      <Button onPress={() => Actions.about()} >
+      <Button onPress={() => {
+        props.drawerState(true);
+        Actions.about();
+      }}>
         About Us
       </Button>
       <Button onPress={props.onPress} >
@@ -53,4 +75,4 @@ const DrawerMenu = (props) => {
   );
 };
 
-export default DrawerMenu;
+export default connect(null, actions)(DrawerMenu);

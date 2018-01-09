@@ -53,3 +53,17 @@ export const drawerState = (toggle) => {
     payload: toggle
   };
 };
+
+export const currentImage = (url) => {
+  return {
+    type: 'current_image',
+    payload: url
+  };
+};
+
+export const currentImageVisible = (bool) => {
+  return {
+    type: 'curr_pic',
+    payload: bool
+  };
+};

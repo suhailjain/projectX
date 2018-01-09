@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Alert } from 'react-native';
+import { View, Text, Image, Alert, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+import Modal from 'react-native-modal';
+import * as actions from '../../actions';
 import Button from '../common/Button';
 import fbAccess from '../FirebaseConfig';
 
@@ -35,19 +36,36 @@ const likeHandle = (url, id, likes) => {
 
 class ImageItem extends Component {
   render() {
+    console.log('success');
+    console.log(this.props.currentImage);
     return (
       <View>
+      <TouchableOpacity onPress={() => {
+        this.props.currentImage(this.props.pic.url);
+        this.props.currentImageVisible(true);
+       }}>
       <Image
         style={{ width: 300,
         height: 300 }}
         source={{ uri: this.props.pic.url }}
       />
+      </TouchableOpacity>
       <Text>
       {this.props.pic.title}
       </Text>
       <Button onPress={() => likeHandle(this.props.dbref, this.props.pic.id, this.props.pic.likes)} >
       like {this.props.pic.likes}
       </Button>
+      <Modal
+      onBackdropPress={() => this.props.currentImageVisible(false)}
+      isVisible={this.props.visible} >
+      <Image
+        style={{ width: 300,
+        height: 300 }}
+        source={{ uri: this.props.currentImage }}
+      />
+      <Text>confirm</Text>
+      </Modal>
       </View>
     );
   }
@@ -55,8 +73,10 @@ class ImageItem extends Component {
 
 const mapStateToProps = state => {
   return {
-    dbref: state.dbRef
+    dbref: state.dbRef,
+    currentImage: state.currentImage,
+    visible: state.visible
   };
 };
 
-export default connect(mapStateToProps)(ImageItem);
+export default connect(mapStateToProps, actions)(ImageItem);
