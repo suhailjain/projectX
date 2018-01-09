@@ -62,7 +62,7 @@ class ImageItem extends Component {
       <Image
         style={{ width: 300,
         height: 300 }}
-        source={{ uri: this.props.currentImage }}
+        source={{ uri: this.props.pic.url }}
       />
       <Text>confirm</Text>
       </Modal>

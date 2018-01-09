@@ -1,4 +1,4 @@
-export default (state = null, action) => {
+export default (state = '', action) => {
   console.log(action.payload);
   switch (action.type) {
     case 'current_image':
