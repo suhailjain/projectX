@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from '../common/Button';
+import fbAccess from '../FirebaseConfig';
 import * as actions from '../../actions';
 
 const styles = StyleSheet.create({
@@ -22,6 +24,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+const loginCheck = () => {
+  if (fbAccess.auth().currentUser === null) {
+  return false;
+  } else {
+    return true;
+  }
+};
 
 const DrawerMenu = (props) => {
   return (
@@ -39,14 +49,22 @@ const DrawerMenu = (props) => {
         Unity Clip
       </Button>
       <Button onPress={() => {
-        props.drawerState(true);
+    //    props.drawerState(true);
+        if (loginCheck()) {
         Actions.feedback();
+      } else {
+        Alert.alert('login is must');
+      }
       }}>
         Feedbacks
       </Button>
       <Button onPress={() => {
-        props.drawerState(true);
-        Actions.survey();
+        //    props.drawerState(true);
+          if (loginCheck()) {
+          Actions.feedback();
+        } else {
+          Alert.alert('login is must');
+        }
       }}>
         Surveys
       </Button>
