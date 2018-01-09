@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import Header from '../common/Header';
 import Button from '../common/Button';
 import ImageList from './ImageList';
+import * as actions from '../../actions';
 import fbAccess from '../FirebaseConfig';
 
 const clickMe = () => {
@@ -25,7 +26,10 @@ class Gallery extends Component {
       <Text>
       Gallery
       </Text>
-      <Button onPress={() => clickMe()} >
+      <Button onPress={() => {
+        this.props.cameraFace('front');
+        clickMe();
+      }}>
       click
       </Button>
       <ImageList />
@@ -40,4 +44,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Gallery);
+export default connect(mapStateToProps, actions)(Gallery);

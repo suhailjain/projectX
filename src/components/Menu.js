@@ -35,7 +35,9 @@ class Menu extends Component {
     Food
     </Button>
     {this.renderCinepolis()}
-
+    <Button onPress={() => Actions.park()}>
+    Park Assist
+    </Button>
     </View>
   );
 }

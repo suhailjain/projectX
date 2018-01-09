@@ -64,8 +64,7 @@ class EmailPass extends Component {
     firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(() => Alert.alert('you have loggedin successfuly'))
     .then(() => {
-      Actions.refresh();
-    //  Actions.pop();
+      Actions.pop();
     })
     .catch(() => {
       firebase.auth().createUserWithEmailAndPassword(email, pass)

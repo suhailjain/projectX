@@ -67,3 +67,10 @@ export const currentImageVisible = (bool) => {
     payload: bool
   };
 };
+
+export const cameraFace = (type) => {
+  return {
+    type: 'camera',
+    payload: type
+  };
+};

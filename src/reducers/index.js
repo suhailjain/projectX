@@ -9,6 +9,7 @@ import LikeUrlReducer from './LikeUrlReducer';
 import DrawerStateReducer from './DrawerStateReducer';
 import CurrentImageReducer from './CurrentImageReducer';
 import CurrentImageVisible from './CurrentImageVisibleReducer';
+import CameraReducer from './CameraReducer';
 
 export default combineReducers({
 //store.getState()  returns {currentLocation:[]}
@@ -21,5 +22,6 @@ export default combineReducers({
   likeUrl: LikeUrlReducer,
   drawerState: DrawerStateReducer,
   currentImage: CurrentImageReducer,
-  visible: CurrentImageVisible
+  visible: CurrentImageVisible,
+  cameraFace: CameraReducer
 });

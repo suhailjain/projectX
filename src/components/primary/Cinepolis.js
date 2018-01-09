@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import SwipeableParallaxCarousel from 'react-native-swipeable-parallax-carousel';
+import Header from '../common/Header';
 
 const datacarousel = [
   {
@@ -28,6 +29,7 @@ class Cinepolis extends Component {
     render() {
       return (
         <View>
+        <Header headerText={'Now  Showing'} onPress={() => this.props.drawerState(false)} />
         <SwipeableParallaxCarousel
             data={datacarousel}
             parallax={true}

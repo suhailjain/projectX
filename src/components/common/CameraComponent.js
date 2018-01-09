@@ -4,6 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 
@@ -32,7 +33,7 @@ class CameraComponent extends Component {
           }}
           onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
-          type={Camera.constants.Type.front}
+          type={this.props.type}
           aspect={Camera.constants.Aspect.fill}
         >
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
@@ -62,4 +63,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CameraComponent;
+const mapStateToProps = state => {
+  return {
+    type: state.cameraFace
+  };
+};
+
+export default connect(mapStateToProps)(CameraComponent);
