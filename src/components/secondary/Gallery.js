@@ -22,7 +22,7 @@ class Gallery extends Component {
   render() {
     return (
       <View>
-      <Header headerText={'Selfie Point'} />
+      <Header headerText={'Selfie Point'} onPress={() => this.props.drawerState(false)} />
       <Text>
       Gallery
       </Text>

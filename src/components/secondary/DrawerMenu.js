@@ -51,6 +51,7 @@ const DrawerMenu = (props) => {
       <Button onPress={() => {
     //    props.drawerState(true);
         if (loginCheck()) {
+          props.drawerState(true);
         Actions.feedback();
       } else {
         Alert.alert('login is must');
@@ -61,6 +62,7 @@ const DrawerMenu = (props) => {
       <Button onPress={() => {
         //    props.drawerState(true);
           if (loginCheck()) {
+            props.drawerState(true);
           Actions.feedback();
         } else {
           Alert.alert('login is must');

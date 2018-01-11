@@ -1,31 +1,25 @@
 import React from 'react';
-import { Text, View, Dimensions } from 'react-native';
-import { Icon } from 'react-native-elements';
-import Button from './Button';
-
+import { Text, View, Dimensions, StatusBar } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
+const statusBarHeight = StatusBar.currentHeight;
 
-const Header = (props) => {
+const HeaderPlain = (props) => {
   return (
     <View style={styles.viewStyle}>
-    <Icon name='menu' onPress={props.onPress} iconStyle={styles.menuIcon} />
       <Text style={styles.headerTextStyle}>{props.headerText}</Text>
     </View>
   );
 };
 
 const styles = {
-  menuIcon: {
-    marginLeft: 10
-  },
   viewStyle: {
     backgroundColor: '#F8F8F8',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    marginTop: height - statusBarHeight,
     alignItems: 'center',
     height: height / 11,
     flexDirection: 'row',
-    marginTop: '2%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -33,7 +27,6 @@ const styles = {
     position: 'relative'
   },
   headerTextStyle: {
-    marginLeft: 50,
     fontSize: 20
   },
   textStyle: {
@@ -61,4 +54,4 @@ const styles = {
 };
 
 // Make the component available to other parts of the app
-export default Header;
+export default HeaderPlain;

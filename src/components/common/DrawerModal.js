@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import * as actions from '../../actions';
 import DrawerMenu from '../secondary/DrawerMenu';
 
+const { width, height } = Dimensions.get('window');
+
 class DrawerModal extends Component {
+
   render() {
     return (
       <View>
@@ -25,6 +28,7 @@ class DrawerModal extends Component {
 
 const styles = StyleSheet.create({
   drawerContainer: {
+    marginTop: height / 11,
     marginLeft: 0,
     borderWidth: 2,
     borderColor: '#000000',

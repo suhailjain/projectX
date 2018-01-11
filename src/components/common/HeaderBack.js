@@ -1,27 +1,24 @@
 import React from 'react';
 import { Text, View, Dimensions } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from './Button';
 
 
 const { width, height } = Dimensions.get('window');
 
-const Header = (props) => {
+const HeaderBack = (props) => {
   return (
     <View style={styles.viewStyle}>
-    <Icon name='menu' onPress={props.onPress} iconStyle={styles.menuIcon} />
+        <Icon name='menu' onPress={props.onPress} />
       <Text style={styles.headerTextStyle}>{props.headerText}</Text>
     </View>
   );
 };
 
 const styles = {
-  menuIcon: {
-    marginLeft: 10
-  },
   viewStyle: {
     backgroundColor: '#F8F8F8',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     height: height / 11,
     flexDirection: 'row',
@@ -33,7 +30,6 @@ const styles = {
     position: 'relative'
   },
   headerTextStyle: {
-    marginLeft: 50,
     fontSize: 20
   },
   textStyle: {
@@ -43,7 +39,7 @@ const styles = {
       fontWeight: '600',
       paddingTop: 10,
       paddingBottom: 10
-  },
+    },
   buttonStyle: {
       borderWidth: 1,
       borderRadius: 2,
@@ -57,8 +53,8 @@ const styles = {
       marginLeft: 5,
       marginRight: 5,
       marginTop: 10
-  }
+    }
 };
 
 // Make the component available to other parts of the app
-export default Header;
+export default HeaderBack;

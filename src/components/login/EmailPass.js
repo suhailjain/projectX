@@ -6,7 +6,6 @@ import firebase from 'firebase';
 import Button from '../common/Button';
 import * as actions from '../../actions';
 import fbAccess from '../FirebaseConfig';
-import Header from '../common/Header';
 
 class EmailPass extends Component {
   constructor() {
@@ -18,7 +17,6 @@ class EmailPass extends Component {
     if (user === null) {
       return (
         <View>
-        <Header headerText={'Register'} onPress={() => console.log('menu')} />
         <View>
         <TextInput
              underlineColorAndroid="transparent"
